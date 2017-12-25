@@ -1,3 +1,5 @@
+import utils from '../utils/utils'
+
 /**
  * x: 敌人的位置x [number] | null = 随机x坐标
  * y: 敌人的位置y [number] | null = 随机y坐标
@@ -9,7 +11,7 @@
  *     - [function(???, cb)]
  *          如果enemy是string  则???传入的是敌人对象
  *          如果enemy是函数     则???是这个函数的返回结果，可以传递一些数据
- *          在函数中调用cb时进入下一条数据
+ *          在函数中调用cb时进入下一条数据，cb中可以传入一个数，表示额外的延迟
  */
 
 export default {
@@ -23,7 +25,7 @@ export default {
         { enemy: 'Red', x: 200, y: 150, after: 10 },
         { enemy: 'Red', x: 200, y: 200, after: 10 },
         { enemy: 'Red', x: 200, y: 250, after: 10 },
-        { enemy: 'Red', x: 200, y: 300, after: 10 },
+        { enemy: 'Red', x: 200, y: 300, after: 10 },    // 10
         { enemy: 'Red', x: 200, y: 350, after: 10 },
         { enemy: 'Red', x: 200, y: 400, after: 10 },
         { enemy: 'Red', x: 200, y: 450, after: 10 },
@@ -33,22 +35,27 @@ export default {
         { enemy: 'Red', x: 800, y: 200, after: 10 },
         { enemy: 'Red', x: 800, y: 250, after: 10 },
         { enemy: 'Red', x: 800, y: 300, after: 10 },
-        { enemy: 'Red', x: 800, y: 350, after: 10 },
+        { enemy: 'Red', x: 800, y: 350, after: 10 },    // 20
         { enemy: 'Red', x: 800, y: 400, after: 10 },
         { enemy: 'Red', x: 800, y: 450, after: 10 },
-        { enemy: 'Red', x: 800, y: 500, after: 600 },
+        { enemy: 'Red', x: 800, y: 500, after: afterThisEnemyDeath(30) },
         { enemy: 'Speed', after: 100 },
         { enemy: 'Speed', after: 100 },
         { enemy: 'Speed', after: 100 },
-        { enemy: 'Speed', after: 100 },
-        { enemy: 'Speed', after: 100 },
+        { enemy: 'Speed', after: 50 },
+        { enemy: 'Speed', after: 50 },
         { enemy: 'Speed', after: 100 },
         { enemy: 'Speed', after: 0 },
         { enemy: 'Speed', after: 0 },
-        { enemy: 'Speed', after: 0 },
-        { enemy: 'Speed', after: 150 },
-        { enemy: 'Speed', after: 150 },
-        { enemy: 'Speed', after: 150 },
-        { enemy: 'Speed', after: 150 }
+        { enemy: 'Speed', after: 100 },
+        { enemy: 'Speed', after: 100 },
+        { enemy: 'Speed', after: 100 }
     ]
+}
+
+// 当这一个敌人死亡后time秒，下一个敌人刷新
+function afterThisEnemyDeath(time) {
+    return function (enemy, next) {
+        enemy.onDeath = next.bind(null, time)
+    }
 }

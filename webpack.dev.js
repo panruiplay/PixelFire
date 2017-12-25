@@ -4,9 +4,7 @@ let webpack           = require('webpack'),
     path              = (...args) => resolve(__dirname, ...args)
 
 module.exports = {
-    entry: {
-        'index': path('./src/index.js')
-    },
+    entry: { 'index': path('./src/index.js') },
     output: {
         path: path('./build'),
         publicPath: '/',
@@ -18,7 +16,15 @@ module.exports = {
             {
                 test: /\.scss$/,
                 exclude: /node_modules/,
-                loader: ['style-loader', 'css-loader', 'sass-loader']
+                loader: [
+                    'style-loader', 'css-loader', 'sass-loader',
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            resources: path(__dirname, './src/global.scss')
+                        }
+                    }
+                ]
             },
             {
                 test: /\.css$/,

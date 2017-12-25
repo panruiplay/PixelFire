@@ -1,4 +1,5 @@
 import Game from '../Game'
+import utils from '../../utils/utils'
 
 let Control = {},
     count   = 0,
@@ -51,14 +52,27 @@ function keyUp(key) {
 
 /*****************************************************/
 
+// container容器相对于窗口左边和上边的距离
 let OL, OT
-window.onresize = function () {
-    let { left, top } = Game.container.getBoundingClientRect()
-    OL = left + 5
-    OT = top + 5
-}
 
 Control = {
+    init(cb) {
+        window.onresize = function () {
+            let { left, top } = Game.container.getBoundingClientRect()
+            OL                = left + 5
+            OT                = top + 5
+        }
+        
+        window.onresize()
+        
+        document.onkeydown   = Control.down_interface.bind(Control)
+        document.onkeyup     = Control.up_interface.bind(Control)
+        document.onmousemove = Control.mouse_interface.bind(Control)
+        
+        this.disableDirectionKey()
+        
+        cb()
+    },
     // 禁用键
     disableMap: {},
     // 禁用鼠标
@@ -66,23 +80,23 @@ Control = {
     // keydown接口
     down_interface(evt) {
         let key = 'k' + evt.keyCode
-
+        
         if(this.disableMap[key]) return
-
+        
         this[key] && this[key]()
     },
     // keyup接口
     up_interface(evt) {
         let key = 'c' + evt.keyCode
-
+        
         if(this.disableMap[key]) return
-
+        
         this[key] && this[key]()
     },
     // 鼠标接口
     mouse_interface(evt) {
         if(this.disableMouse) return
-
+        
         this.mouseX = evt.pageX - OL
         this.mouseY = evt.pageY - OT
     },
@@ -91,8 +105,6 @@ Control = {
     directionReset: reset,
     // 方向改变时触发
     onDirChange: function () {},
-    // 鼠标移动
-    onMouseMove: function () {},
     // 禁用方向键
     disableDirectionKey() {
         ['k87', 'c87', 'k65', 'c65', 'k68', 'c68', 'k83', 'c83'].forEach(v => this.disableMap[v] = 1)
@@ -103,7 +115,7 @@ Control = {
         ['k87', 'c87', 'k65', 'c65', 'k68', 'c68', 'k83', 'c83'].forEach(v => this.disableMap[v] = 0)
         this.directionReset()
     },
-
+    
     /*---------------- 具体某个键的方法 ----------------*/
     k87() { keyDown(1) },
     k65() { keyDown(4) },
@@ -115,8 +127,4 @@ Control = {
     c83() { keyUp(3) }
 }
 
-document.onkeydown = Control.down_interface.bind(Control)
-document.onkeyup = Control.up_interface.bind(Control)
-document.onmousemove = Control.mouse_interface.bind(Control)
-
-export default Control
+export default utils.allBind(Control)

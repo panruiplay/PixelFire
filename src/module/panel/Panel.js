@@ -1,10 +1,13 @@
+import './panel.scss'
 import utils from '@/utils/utils'
 import dom from '@/utils/dom'
+import Chain from 'func-chain'
 
 let Panel = {
     nowPanel: 'loading',
     changing: false,
-
+    
+    // 初始化加载所有面板
     init(cb) {
         Array.from(document.querySelectorAll('.panel')).forEach(v => {
             let name = v.className.replace(/(panel)| /g, '')
@@ -41,12 +44,11 @@ let Panel = {
     },
     // 切换面板
     change(panel = this.nowPanel, cb) {
-        console.log(3)
         Chain()
         > this.hide.args(this.nowPanel)
         > this.show.args(panel)
         > function () { cb && cb() }
-        > cgo()
+        || Chain.go()
     }
 }
 

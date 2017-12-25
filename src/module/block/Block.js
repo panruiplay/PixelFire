@@ -1,6 +1,9 @@
+import './block.scss'
+
 import Game from '@/module/Game'
 import Music from '@/module/music/Music'
 import utils from '../../utils/utils'
+import Chain from 'func-chain'
 import dom from '../../utils/dom'
 import AnimationFactory from '../animation/AnimationFactory'
 
@@ -10,13 +13,13 @@ export default Base.extend({
     constructor(x = utils.random(0, 980), y = utils.random(0, 580), angle = utils.randomAngle()) {
         this.x = x
         this.y = y
-
+        
         let skillTmp = []
         this.skills.forEach(v => skillTmp.push(new v(this)))
         this.skills = skillTmp
         this.setAngle(angle)
     },
-
+    
     dom: null,          // 绑定的DOM元素
     cls: '',            // 样式
     beforeAni: '',      // 出生前动画
@@ -36,16 +39,16 @@ export default Base.extend({
     isDestroy: false,   // 是否销毁
     afterMovePlugin: [],   // 位置移动之后的插件
     afterUpdatePlugin: [], // update之后的插件
-
+    
     // 四叉树辅助用
     width: 10,
     height: 10,
-
+    
     // 初始化
     init() {
         this.isDestroy = false
-        let tmp = this.length >> 1
-        this.dom = dom.create('div', `block${this.length} ${this.cls}`)
+        let tmp        = this.length >> 1
+        this.dom       = dom.create('div', `block${this.length} ${this.cls}`)
         this.x -= tmp
         this.y -= tmp
         this.update()
@@ -54,31 +57,31 @@ export default Base.extend({
     // 插入HTML中
     birth(cb) {
         let { x, y } = this.getCenter()
-
+        
         Chain()
-
+        
         // 没有出生前动画则跳过
         > function (next) {
             this.beforeAni || next.skip(1)
             next()
         }.bind(this)
-
+        
         // 出生前动画
         > AnimationFactory.args(this.beforeAni, x, y)
-
+        
         // 出生动画
         > function (next) {
             // 出生动画
             this.birthAni && AnimationFactory(this.birthAni, x, y)
             // 出生音乐
             this.birthMusic && Music.play(this.birthMusic)
-
+            
             Game.container.appendChild(this.dom)
             cb && cb()
             next()
         }.bind(this)
-
-        > cgo()
+        
+        || Chain.go()
         return this
     },
     // 显示
@@ -111,13 +114,13 @@ export default Base.extend({
         this.deathAni && AnimationFactory(this.deathAni, center.x, center.y)
         Game.container.removeChild(this.dom)
         this.isDestroy = true
-        this.dom = null
+        this.dom       = null
         this.onDeath && this.onDeath()
         return this
     },
     // 设置角度
     setAngle(deg) {
-        this.angle = deg
+        this.angle  = deg
         this.radian = deg * pix
         this.decomposeSpeed()
     },
@@ -145,19 +148,19 @@ export default Base.extend({
             b1y  = block1.y,
             b2x  = block2.x,
             b2y  = block2.y
-
+        
         return !(b1y > len2 + b2y || len1 + b1x < b2x || len1 + b1y < b2y || b1x > len2 + b2x)
+        
     },
     // 撞击
     collision(block1, block2) {
-        if(block1.hp <= 0 || block2.hp <= 0) return
-
+        if(block1.isDestroy || block2.isDestroy) return
+        
         let tmp = block1.hp
         block1.hp -= block2.hp
         block2.hp -= tmp
-
+        
         if(block1.hp <= 0) block1.destroy()
         if(block2.hp <= 0) block2.destroy()
     }
 })
-

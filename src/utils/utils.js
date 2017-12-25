@@ -7,20 +7,20 @@ export default {
         }
         return target
     },
-    wait(time, cb) {setTimeout(cb, time)},
+    wait(time, cb) {setTimeout(function () {cb && cb()}, time)},
     lock(fn) {
         let lockState = false,
             unlock    = function () {lockState = false},
             lockFn    = fn(unlock)
-
+        
         return function () {
             if(lockState) return
-
+            
             lockState = true
             lockFn.apply(null, Array.prototype.slice.call(arguments))
         }
     },
-
+    
     // 数学方法
     unique(array) {
         let r = []

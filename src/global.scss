@@ -1,0 +1,10 @@
+@charset "UTF-8";
+@mixin wei { font-family: 'wei'}
+%flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+$menuColor: #7fffec;
+$uiColor: #3096e9;
+$textColor: #ff8f5e;

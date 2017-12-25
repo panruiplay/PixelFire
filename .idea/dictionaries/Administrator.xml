@@ -1,7 +1,9 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Administrator">
     <words>
-      <w>animationend</w>
+      <w>oncanplaythrough</w>
+      <w>onload</w>
+      <w>onresize</w>
     </words>
   </dictionary>
 </component>

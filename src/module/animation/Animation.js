@@ -1,3 +1,4 @@
+import './ani.scss'
 import Game from '../Game'
 import dom from '../../utils/dom'
 import Music from '../music/Music'
