@@ -1,0 +1,55 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'wei';
+    src: url('/assets/font/wei.ttf');
+}
+@mixin wei{
+    font-family: 'wei';
+}
+ul, li, h1, h2, h3, html, body { margin: 0; padding: 0; }
+html, body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    font: 16px/1 '楷体', "kai";
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: #000;
+}
+#container {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+    height: 600px;
+    border: 5px solid #3096E9;
+    box-shadow: 0 0 15px 0 rgba(48, 150, 233, 1);
+    overflow: hidden;
+}
+.fz{
+    @include wei;
+    position: absolute;
+    color: #fff;
+    transform: translateZ(0px);
+    filter:drop-shadow(0 0 10px #5927ff) blur(2px);
+}
+// ---------------------占位样式---------------------
+%flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+$menuColor: #7fffec;
+$uiColor: #3096E9;
+$textColor: #ff8f5e;
+// ---------------------其它模块---------------------
+@import "./module/panel";
+@import "./module/block";
+@import "./module/ani";
+/**
+ block  z-index:10
+ ani    z-index:20
+ panel  z-index:1000
+ */

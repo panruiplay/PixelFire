@@ -1,2 +1,2 @@
 # PixelFire
-ES6 + webpack 构建的射击类游戏
+webpack + ES6 + func-chain 构建的射击类游戏

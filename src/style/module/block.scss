@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+%block {
+    position: absolute;
+    box-sizing: border-box;
+    z-index: 10;
+}
+@for $i from 3 to 10 {
+    .block#{$i*2} {
+        @extend %block;
+        width: ($i*2px);
+        height: ($i*2px);
+    }
+}
+/*------------------------装饰------------------------*/
+%d-green1 { box-shadow: 0 0 10px 0 #96ff4e; }
+%d-green2 { box-shadow: 0 0 10px 1px #96ff4e; }
+%d-green3 { box-shadow: 0 0 15px 2px #96ff4e; }
+%d-green4 { box-shadow: 0 0 10px 3px #96ff4e; }
+%d-red1 { box-shadow: 0 0 10px 1px #ff3524; }
+%d-red2 { box-shadow: 0 0 15px 2px #ff3524; }
+%d-red3 { box-shadow: 0 0 10px 3px #ff3524; }
+/*------------------------单位------------------------*/
+.user {
+    @extend %d-green1;
+    background-color: #96ff4e;
+}
+.s-red {
+    @extend %d-red1;
+    background-color: #ff3524;
+    border: 2px solid #ff7a11;
+}
+.s-speed {
+    @extend %d-green1;
+    background-color: #ffab20;
+}
+.s-yellow {
+    background-color: #f3ff12;
+    box-shadow: 0 0 10px 1px #f3ff12;
+}
+// 子弹
+%san {
+}
+.san1 {
+    border-radius: 50%;
+    border: 2px solid #96ff4e;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+}
+/*------------------------瞄准器------------------------*/
+%s {
+    position: absolute;
+    width: 80px;
+    height: 1px;
+    transform-origin: 0;
+    z-index: 0;
+}
+.s1 {
+    @extend %s;
+    background-color: rgba(150, 255, 78, 0.5);
+    box-shadow: 0 0 10px 0 #96ff4e;
+}
+.s2 {
+    @extend %s;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-color: rgba(150, 255, 78, 0.3);
+    box-shadow: 0 0 4px 1px #96ff4e;
+}

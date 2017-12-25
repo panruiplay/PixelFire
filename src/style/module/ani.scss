@@ -1,0 +1,153 @@
+@charset "UTF-8";
+.ani {
+    position: absolute;
+    box-sizing: border-box;
+    transform-origin: center;
+    animation-fill-mode: both;
+    z-index: 20;
+}
+@keyframes colorRotate {
+    100% { filter: hue-rotate(360deg) }
+}
+/*----------------------扩大----------------------*/
+%spread {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    animation-name: spread;
+    animation-duration: .6s;
+}
+.spread-red {
+    @extend %spread;
+    border: 1px solid #ff2e2f;
+    box-shadow: 0 0 10px 1px rgba(255, 46, 47, 0.6);
+}
+.spread-blue {
+    @extend %spread;
+    border: 1px solid #5c7cff;
+    box-shadow: 0 0 10px 1px rgba(92, 124, 255, 0.6);
+}
+.spread-green {
+    @extend %spread;
+    border: 1px solid #96ff4e;
+    box-shadow: 0 0 10px 1px rgba(150, 255, 78, 0.6);
+}
+@keyframes spread {
+    0% { transform: scale(1) }
+    100% { transform: scale(5); opacity: 0 }
+}
+/*----------------------收缩----------------------*/
+%shrink {
+    width: 10px;
+    height: 10px;
+    animation: shrink ease-in both;
+}
+.shrink-green {
+    @extend %shrink;
+    border: 1px solid #96ff4e;
+    box-shadow: 0 0 10px 0 #96ff4e inset;
+    animation-duration: .7s;
+}
+.shrink-red {
+    @extend %shrink;
+    border: 1px dashed #ff2e2f;
+    box-shadow: 0 0 10px 0 #ff2e2f;
+    animation-duration: .7s;
+}
+.shrink-speed {
+    @extend %shrink;
+    border: 1px dashed #ffab20;
+    box-shadow: 0 0 10px 0 #ffab20;
+    animation-duration: .6s;
+}
+%shrink-rotate {
+    width: 10px;
+    height: 10px;
+    animation: shrinkRotate linear 1s;
+}
+.shrink-yellow {
+    @extend %shrink-rotate;
+    border: 1px dashed #f3ff12;
+    box-shadow: 0 0 10px 0 #f3ff12;
+}
+.shrink-blue {
+    @extend %shrink-rotate;
+    border: 1px dashed #5c7cff;
+    box-shadow: 0 0 10px 0 #5c7cff;
+}
+@keyframes shrink {
+    0% { width: 160px; height: 160px; margin: -72px 0 0 -72px; opacity: 0 }
+    10% { width: 160px; height: 160px; margin: -72px 0 0 -72px; opacity: 1 }
+    100% { width: 10px; height: 10px; margin: 0; }
+}
+@keyframes shrinkRotate {
+    0% { width: 160px; height: 160px; margin: -72px 0 0 -72px; }
+    100% { width: 10px; height: 10px; margin: 0; transform: rotate(360deg) }
+}
+/*----------------------爆炸----------------------*/
+%boom {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: boom .9s both;
+}
+.boom-green {
+    @extend %boom;
+    border: 3px dotted #96ff4e;
+}
+.boom-red {
+    @extend %boom;
+    border: 3px dotted #ff2e2f;
+    box-shadow: 0 0 5px 0 #ff2e2f;
+}
+.boom-speed {
+    @extend %boom;
+    border: 3px dotted #ffab20;
+    box-shadow: 0 0 5px 0 #ffab20;
+}
+.boom-yellow {
+    @extend %boom;
+    border: 3px solid #f3ff12;
+    animation-duration: 1s;
+}
+.boom-blue {
+    @extend %boom;
+    border: 3px solid #5c7cff;
+    animation-duration: 1s;
+}
+@keyframes boom {
+    100% {
+        width: 200px;
+        height: 200px;
+        margin-left: -95px;
+        margin-top: -95px;
+        opacity: 0;
+    }
+}
+/*----------------------阴影----------------------*/
+%sha {
+    animation: sha both 1s;
+}
+.red-shadow {
+    @extend %sha;
+    width: 8px;
+    height: 8px;
+    box-shadow: 0 0 5px 1px #ff2e2f;
+    z-index: 0;
+}
+.speed-shadow {
+    @extend %sha;
+    width: 6px;
+    height: 6px;
+    background-color: #ffab20;
+    z-index: 0;
+}
+.yellow-shadow {
+    @extend %sha;
+    width: 10px;
+    height: 10px;
+    box-shadow: 0 0 10px 2px #f3ff12;
+}
+@keyframes sha {
+    100% { opacity: 0 }
+}
