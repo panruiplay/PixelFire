@@ -1,33 +1,46 @@
 {
-  "name": "PixelFire",
-  "version": "1.0.0",
-  "description": "ES6 + webpack 构建的射击类游戏",
-  "main": "index.js",
-  "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/panruiplay/PixelFire.git"
-  },
-  "keywords": [],
-  "author": "play",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/panruiplay/PixelFire/issues"
-  },
-  "homepage": "https://github.com/panruiplay/PixelFire#readme",
-  "devDependencies": {
-    "css-loader": "^0.28.7",
-    "html-webpack-plugin": "^2.30.1",
-    "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.6",
-    "sass-resources-loader": "^1.3.1",
-    "style-loader": "^0.19.1",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
-  },
-  "dependencies": {
-    "func-chain": "^1.0.4"
-  }
+    "name": "PixelFire",
+    "version": "1.0.0",
+    "description": "ES6 + webpack 构建的射击类游戏",
+    "main": "index.js",
+    "scripts": {
+        "start": "webpack-dev-server --config webpack.dev.js",
+        "build": "webpack --config webpack.pro.js",
+        "server": "http-server ./build/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/panruiplay/PixelFire.git"
+    },
+    "keywords": [],
+    "author": "play",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/panruiplay/PixelFire/issues"
+    },
+    "homepage": "https://github.com/panruiplay/PixelFire#readme",
+    "devDependencies": {
+        "autoprefixer": "^7.2.3",
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-preset-env": "^1.6.1",
+        "copy-webpack-plugin": "^4.3.1",
+        "css-loader": "^0.28.7",
+        "cssnano": "^3.10.0",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "file-loader": "^1.1.6",
+        "html-webpack-plugin": "^2.30.1",
+        "node-sass": "^4.7.2",
+        "optimize-css-assets-webpack-plugin": "^3.2.0",
+        "postcss-loader": "^2.0.9",
+        "rimraf": "^2.6.2",
+        "sass-loader": "^6.0.6",
+        "sass-resources-loader": "^1.3.1",
+        "style-loader": "^0.19.1",
+        "webpack": "^3.10.0",
+        "webpack-dev-server": "^2.9.7"
+    },
+    "dependencies": {
+        "func-chain": "^1.0.4"
+    }
 }

@@ -8,6 +8,7 @@ import EnemyFactory from './block/enemy/EnemyFactory'
 import Data from './Data'
 import Block from './block/Block'
 import Chain from 'func-chain'
+import AnimationFactory from '@/module/animation/AnimationFactory'
 
 let Game = {
     container: dom.search('#container'),
@@ -25,7 +26,6 @@ let Game = {
     nowItem: 0,
     
     // 关卡进度变量
-    nowData: null, // 当前关卡所有数据
     time: -1,
     nextTime: 0,
     
@@ -39,7 +39,7 @@ let Game = {
         > Control.init
         > function (next) {
             // 切换到主菜单
-            Panel.change('main')
+            Panel.change('menu')
             // 播放背景音乐
             Music.playBGM()
             // 初始化事件
@@ -101,15 +101,27 @@ let Game = {
     /*-------------- 游戏流程 --------------*/
     // 设置关卡
     setK(value) {
-        this.nowK    = value
-        this.nowItem = 30
+        this.nowK     = value
+        this.time     = -1
+        this.nextTime = 0
+        this.nowItem  = 0
+    },
+    // 下一关
+    nextK() {
+        new Chain(
+            AnimationFactory.args('Interlude', 500, 300, 'Round ' + (this.nowK + 1)),
+            AnimationFactory.args('Interlude2Comb', 500, 300),
+            function () {
+                this.setK(this.nowK + 1)
+            }.bind(this)
+        ).go()
     },
     // 游戏开始
     GameStart() {
         let user = this.user,
             tree = this.tree
         
-        this.enemyList = []
+        this.enemyList  = []
         this.friendList = []
         
         function loop() {
@@ -153,6 +165,7 @@ let Game = {
                         Block.isCollision(obj, Collisions[i]) && Block.collision(obj, Collisions[i])
                     }
                 }
+                
             }
             
             requestAnimationFrame(loop)
@@ -210,7 +223,10 @@ let Game = {
         
         let item = Data['k' + this.nowK][this.nowItem]   // 当前数据
         
-        if(!item) return
+        // 没有下一条数据了,进入下一关
+        if(!item) {
+            return this.nextK()
+        }
         
         let enemy    = item.enemy,
             after    = item.after,
@@ -221,6 +237,9 @@ let Game = {
             // 数据中enemy是字符串
             let x = item.x || utils.random(0, 980),
                 y = item.y || utils.random(0, 580)
+            
+            if(x === 'u') x = this.user.getCenter().x
+            if(y === 'u') y = this.user.getCenter().y
             
             result = EnemyFactory(enemy, x, y).init().birth(function () {
                 Game.addEnemy(result)
@@ -281,9 +300,5 @@ let Game = {
         })
     }
 }
-
-window.Game  = Game
-window.music = Music
-window.panel = Panel
 
 export default utils.allBind(Game)

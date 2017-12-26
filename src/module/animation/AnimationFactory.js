@@ -2,6 +2,7 @@ import Spread from './Spread'
 import Shrink from './Shrink'
 import Boom from './Boom'
 import Shadow from './Shadow'
+import Interlude from './Interlude'
 import Combination from './Combination'
 
 export default function (aniType, ...args) {
@@ -42,6 +43,13 @@ export default function (aniType, ...args) {
             return new Shadow.ShadowSpeed(...args)
         case 'ShadowYellow':
             return new Shadow.ShadowYellow(...args)
+        // 其它
+        case 'Interlude':
+            return new Interlude.Interlude(...args)
+        case 'Interlude2':
+            return new Interlude.Interlude2(...args)
+        case 'Interlude2Comb':
+            return new Interlude.Interlude2Comb(...args)
         // 组合动画
         case 'UserBirth':
             return new Combination.UserBirth(...args)

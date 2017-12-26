@@ -4,7 +4,7 @@ import Game from '../Game'
 export function Boundary2() {
     if(this.x > Game.width || this.x + this.length < 0 ||
         this.y > Game.height || this.y + this.length < 0) {
-        this.destroy()
+        this.destroy(false)
     }
 }
 

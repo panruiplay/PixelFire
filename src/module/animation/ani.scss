@@ -144,10 +144,50 @@
 }
 .yellow-shadow {
     @extend %sha;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     box-shadow: 0 0 10px 2px #f3ff12;
 }
 @keyframes sha {
     100% { opacity: 0 }
+}
+/*----------------------其它----------------------*/
+// 过场动画
+.interlude {
+    @include wei;
+    width: 500px;
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    font-size: 100px;
+    color: $uiColor;
+    text-shadow: 0 0 10px $uiColor;
+    animation: interlude both 3.5s
+}
+.interlude2 {
+    width: 250px;
+    height: 150px;
+    border: 2px dashed #4ec337;
+    filter: blur(2px);
+    animation: interlude2 both 1.5s
+}
+@keyframes interlude {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+        transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+    }
+    35%, 65% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);
+        transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);
+    }
+}
+@keyframes interlude2 {
+    100% {transform: scale(4);opacity: 0}
 }

@@ -10,7 +10,7 @@ html, body {
     position: relative;
     height: 100%;
     width: 100%;
-    font: 16px/1 '楷体', "kai";
+    font: 16px/1 "楷体", "华文楷体", "wei";
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -32,5 +32,8 @@ html, body {
     position: absolute;
     color: #fff;
     transform: translateZ(0px);
-    filter: drop-shadow(0 0 10px #5927ff) blur(2px);
+    animation: fz infinite 3s;
+}
+@keyframes fz {
+    50% {filter: blur(4px)}
 }

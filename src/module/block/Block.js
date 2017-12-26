@@ -77,8 +77,10 @@ export default Base.extend({
             this.birthMusic && Music.play(this.birthMusic)
             
             Game.container.appendChild(this.dom)
-            cb && cb()
-            next()
+            setTimeout(function () {
+                cb && cb()
+                next()
+            }, 0)
         }.bind(this)
         
         || Chain.go()
@@ -96,11 +98,20 @@ export default Base.extend({
     },
     // 下一帧的状态
     nextState() {
+        this.move()
+        this.afterMove()
+        this.thenSkills()
+        return this.update()
+    },
+    move(){
         this.x += this.vx
         this.y += this.vy
+    },
+    afterMove(){
         this.afterMovePlugin.forEach(v => v.call(this))
+    },
+    thenSkills(){
         this.skills.forEach(v => v.step())
-        return this.update()
     },
     // 更新显示效果
     update() {
@@ -109,9 +120,9 @@ export default Base.extend({
         return this
     },
     // 销毁，死亡
-    destroy() {
+    destroy(playAni = true) {
         let center = this.getCenter()
-        this.deathAni && AnimationFactory(this.deathAni, center.x, center.y)
+        this.deathAni && playAni && AnimationFactory(this.deathAni, center.x, center.y)
         Game.container.removeChild(this.dom)
         this.isDestroy = true
         this.dom       = null

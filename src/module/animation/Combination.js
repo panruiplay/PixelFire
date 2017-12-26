@@ -6,13 +6,13 @@ import Game from '../Game'
 let UserBirth = Animation.extend({
     constructor(x = Game.centerX, y = Game.centerY, cb) {
         let count = 0, over = 0
-
+        
         function go() {
             Factory('ShrinkGreen', x, y, exit)
             if(++count < 4) setTimeout(go, 100)
         }
         go()
-
+        
         function exit() { if(++over >= 4) cb && cb() }
     }
 })
@@ -21,9 +21,9 @@ let UserBirth = Animation.extend({
 let SparkExplosion = Animation.extend({
     constructor(x = Game.centerX, y = Game.centerY, cb) {
         let count = 0
-
+        
         function exit() { if(++count >= 5) cb && cb() }
-
+        
         Factory('SpreadRed', x, y, exit)
         Factory('SpreadGreen', x, y, exit)
         Factory('BoomSpeed', x, y, exit)
