@@ -14,7 +14,7 @@ module.exports = {
     entry: { 'js/index': path('./src/index.js') },
     output: {
         path: path('./build'),
-        publicPath: '/',
+        publicPath: './',
         filename: '[name]@[hash:6].js'
     },
     devtool: false,

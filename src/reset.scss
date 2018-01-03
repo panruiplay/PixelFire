@@ -1,16 +1,12 @@
 @charset "UTF-8";
 //-------∽-★-∽---- reset ----∽-★-∽--------//
-@font-face {
-    font-family: 'wei';
-    src: url('/assets/font/wei.ttf');
-}
-@mixin wei { font-family: 'wei'}
+@mixin wei { font-family: "华文新魏", "SimSun-ExtB", '楷体', "DFKai-SB"}
 ul, li, h1, h2, h3, html, body { margin: 0; padding: 0; }
 html, body {
     position: relative;
     height: 100%;
     width: 100%;
-    font: 16px/1 "楷体", "华文楷体", "wei";
+    font: 16px/1 "楷体", "KaiTi", "DFKai-SB", "华文楷体", "wei";
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;

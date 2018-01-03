@@ -41,7 +41,7 @@ let Game = {
             // 切换到主菜单
             Panel.change('menu')
             // 播放背景音乐
-            Music.playBGM()
+            // Music.playBGM()
             // 初始化事件
             this.bindEvent()
             // 初始化音乐

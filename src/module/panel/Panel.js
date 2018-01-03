@@ -9,6 +9,7 @@ let Panel = {
     
     // 初始化加载所有面板
     init(cb) {
+        console.log('panel')
         Array.from(document.querySelectorAll('.panel')).forEach(v => {
             let name = v.className.replace(/(panel)| /g, '')
             this[name] = v

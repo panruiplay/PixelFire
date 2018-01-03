@@ -5,12 +5,14 @@ import utils from '@/utils/utils'
 let format = name => `/assets/ogg/${name}.ogg`
 
 let Music = {
-    BGM: dom.create('audio'),
+    BGM: new Audio(),
     bgmPro: null,    // 加载bgm时的Promise对象
     bgmOk: false,    // 当BGM准备就绪时
     
     // 初始化
     init(cb) {
+        document.querySelector('.loading .box').innerHTML = '加载音乐'
+        
         this.BGM.loop = true
         this.initLoadMusic(cb)
     },
@@ -18,11 +20,12 @@ let Music = {
     initLoadMusic(cb) {
         // 加载单个音乐
         let load = (name, musicSrc) => new Promise(resolve => {
-            let audio              = dom.create('audio')
-            audio.oncanplaythrough = resolve
-            audio.src              = musicSrc
-            audio.volume           = 0.5
-            this[name]             = audio
+            let audio       = new Audio()
+            audio.oncanplay = resolve
+            audio.onabort   = resolve
+            audio.volume    = 0.6
+            audio.src       = musicSrc
+            this[name]      = audio
         })
         
         // 遍历加载音乐
@@ -59,11 +62,11 @@ let Music = {
     changeBGM(name, cb) {
         this.bgmOk   = false
         this.bgmPro  = new Promise(resolve => {
-            this.BGM.oncanplaythrough = () => {
+            this.BGM.oncanplay = () => {
                 this.bgmOk = true
                 resolve()
                 cb && cb()
-                Music.BGM.oncanplaythrough = null
+                Music.BGM.oncanplay = null
             }
         })
         this.BGM.src = format('bgm_' + name)
