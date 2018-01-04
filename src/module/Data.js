@@ -72,7 +72,7 @@ let data = {
         { enemy: Yellows('u', 'u'), after: 150 },
         ...pRandom(Yellows, 2),
         { enemy: '', after: 40 },
-        { enemy: Yellows('u', 'u'), after: afterTheseEnemyDeath },
+        { enemy: Yellows('u', 'u'), after: afterTheseEnemyDeath(100) },
     ]
 }
 
@@ -90,8 +90,11 @@ function afterTheseEnemyDeath(time) {
     return function (arr, next) {
         let total = arr.length, count = 0
         arr.forEach(v => v.onDeath = exit)
+        console.log(arr)
         function exit() {
-            if(++count == total) next(time)
+            if(++count === total) next(time)
+            console.log(count)
+            console.log(total)
         }
     }
 }

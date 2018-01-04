@@ -41,7 +41,7 @@ let Game = {
             // 切换到主菜单
             Panel.change('menu')
             // 播放背景音乐
-            // Music.playBGM()
+            Music.playBGM()
             // 初始化事件
             this.bindEvent()
             // 初始化音乐
@@ -104,7 +104,7 @@ let Game = {
         this.nowK     = value
         this.time     = -1
         this.nextTime = 0
-        this.nowItem  = 0
+        this.nowItem  = 35
     },
     // 下一关
     nextK() {
@@ -118,6 +118,11 @@ let Game = {
     },
     // 游戏开始
     GameStart() {
+        // 删除Test
+        try{
+            document.querySelector('body').removeChild(document.querySelector('.fz'))
+        }catch (e){}
+        
         let user = this.user,
             tree = this.tree
         
