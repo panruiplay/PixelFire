@@ -72,7 +72,7 @@ let Game = {
         Control.onDirChange = this.onDirChange
     },
     bindMusic() {
-        Array.from(dom.searchAll('.menu li')).forEach(v => {
+        Array.from(dom.searchAll('.btn')).forEach(v => {
             dom.on(v, 'click', function () {Music.play('click') })
         })
     },
@@ -104,7 +104,7 @@ let Game = {
         this.nowK     = value
         this.time     = -1
         this.nextTime = 0
-        this.nowItem  = 35
+        this.nowItem  = 0
     },
     // 下一关
     nextK() {
