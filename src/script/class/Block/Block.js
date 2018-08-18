@@ -30,15 +30,11 @@ class Block {
     
     // 撞击
     static collision(block1, block2) {
-        let dead = [false, false]
-        
         block1.hp -= block2.atk
         block2.hp -= block1.atk
         
-        if(block1.hp <= 0) block1.destroy(), dead[0] = true
-        if(block2.hp <= 0) block2.destroy(), dead[1] = true
-        
-        return dead
+        if(block1.hp <= 0) block1.destroy()
+        if(block2.hp <= 0) block2.destroy()
     }
     
     dom = null          // DOM对象

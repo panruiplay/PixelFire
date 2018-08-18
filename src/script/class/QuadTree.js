@@ -15,7 +15,7 @@ import Rect from './Rect'
  */
 class QuadTree {
     // 每个节点最大物体数量
-    static MAX_OBJECTS = 10
+    static MAX_OBJECTS = 7
     
     // 判断矩形是否在象限范围内
     static isInner = function (rect, bound) {
