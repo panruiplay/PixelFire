@@ -1,0 +1,23 @@
+.block-base {
+    box-sizing: border-box;
+    position: absolute;
+    transform-origin: center;
+    z-index: 10;
+}
+/*----------------------*/
+.background-red {
+    background-color: #FF3524;
+    border: 2px solid #FF7A11;
+    box-shadow: 0 0 10px 1px #FF3524;
+}
+.background-green {
+    background-color: #96FF4E;
+    box-shadow: 0 0 10px 0 #96FF4E;
+}
+/*------------------------瞄准器------------------------*/
+.san1 {
+    border-radius: 50%;
+    border: 2px solid #96FF4E;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+}

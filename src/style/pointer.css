@@ -1,0 +1,18 @@
+.pointer {
+    position: absolute;
+    width: 80px;
+    height: 1px;
+    transform: translateY(-50%);
+    transform-origin: 0 center;
+    z-index: 0;
+}
+.s1 {
+    background-color: rgba(150, 255, 78, 0.5);
+    box-shadow: 0 0 10px 0 #96FF4E;
+}
+.s2 {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-color: rgba(150, 255, 78, 0.3);
+    box-shadow: 0 0 4px 1px #96FF4E;
+}
