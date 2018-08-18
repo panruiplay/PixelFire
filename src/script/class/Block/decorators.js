@@ -25,6 +25,7 @@ export function BoundsLimit(block) {
         if(rect.y < 0) rect.y = 0, is = true
         
         if(is) rect.update()
+        return block
     }
 }
 

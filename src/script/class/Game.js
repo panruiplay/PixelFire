@@ -52,6 +52,15 @@ class Game {
         this.eventBase()
         // 注册用户角色方向键控制
         this.userControl()
+        
+        let a = { x: 1, y: 2 },
+            s = Date.now()
+        
+        for(let i = 0; i < 1000000; i++) {
+            a.x, a.y, a.x, a.y
+        }
+        
+        console.log(Date.now() - s)
     }
     
     // 基本按钮事件
@@ -102,86 +111,80 @@ class Game {
         || Chain.go()
         
         let createEnemy = (time) => {
-            data = data.filter(v => {
-                let { x, y } = v
+            let tmp = []
+            for(let i = data.length - 1; i >= 0; i--) {
+                let v = data[i]
                 if(v.createTime && time >= v.createTime) {
-                    let enemy = UnitFactory(v.enemy, x || this.randomX(), y || this.randomY())
-                    enemy.init().birth(true, () => {
-                        // 敌人生成后，加入敌人组
-                        enemyGroup.push(enemy)
-                    })
-                    return false
+                    let enemy = UnitFactory(v.enemy, v.x || this.randomX(), v.y || this.randomY())
+                    enemy.init().birth(true, () => enemyGroup.push(enemy))
+                    continue
                 }
-                return true
-            })
+                tmp.push(v)
+            }
+            data = tmp
         }
         
         let loop = () => {
             let { centerX, centerY } = user.rect
+            let { userGroup, enemyGroup } = this
             let enemyGroupQuadTree = new QuadTree(this.bounds)
             
-            // 用户指针更新
-            user.pointer.angle = pointDeg(centerX, centerY, control.mouseX, control.mouseY)
             // 生产敌人
             createEnemy(time)
             
-            // 所有敌人加入树
+            // 敌人行动
             for(let i = enemyGroup.length - 1; i >= 0; i--) {
-                enemyGroupQuadTree.insert(enemyGroup[i].rect)
-            }
-            // 碰撞：用户组所有单位与敌人组进行碰撞检测
-            for(let i = userGroup.length - 1; i >= 0; i--) {
-                let userGroupElement = userGroup[i]
+                let enemy    = enemyGroup[i],
+                    { rect } = enemy
                 
-                enemyGroupQuadTree
-                    .retrieve(userGroupElement.rect)
-                    .forEach(enemyRect => {
-                        // 如果发生的碰撞
-                        if(Block.isCollision(enemyRect, userGroupElement.rect)) {
-                            // 碰撞操作
-                            Block.collision(enemyRect.block, userGroupElement)
-                        }
-                    })
-            }
-            
-            // 用户组行动
-            for(let i = userGroup.length - 1; i >= 0; i--) {
-                let unit = userGroup[i]
-                let { rect } = unit
-                
-                if(unit.isDestroy) {
-                    userGroup.splice(i, 1)
-                    continue
-                }
-                
-                unit.next()
-                unit.update()
-                
-                // 杀死所有超出边界的单位
-                if(rect.x > width || rect.y > height || rect.x + rect.width < 0 || rect.y + rect.height < 0) {
-                    unit.destroy(false)
-                    userGroup.splice(i, 1)
-                }
-            }
-            // 敌人组行动
-            for(let i = enemyGroup.length - 1; i >= 0; i--) {
-                let unit = enemyGroup[i]
-                let { rect } = unit
-                
-                if(unit.isDestroy){
+                // 如果已经死亡
+                if(enemy.isDestroy) {
                     enemyGroup.splice(i, 1)
                     continue
                 }
                 
-                unit.next()
-                unit.update()
-                
                 // 杀死所有超出边界的单位
                 if(rect.x > width || rect.y > height || rect.x + rect.width < 0 || rect.y + rect.height < 0) {
-                    unit.destroy(false)
+                    enemy.destroy(false)
                     enemyGroup.splice(i, 1)
+                    continue
+                }
+                
+                enemy.next().update()
+                enemyGroupQuadTree.insert(rect)
+            }
+            // 用户行动 碰撞：用户组所有单位与敌人组进行碰撞检测
+            for(let i = userGroup.length - 1; i >= 0; i--) {
+                let friend   = userGroup[i],
+                    { rect } = friend
+                
+                // 如果已经死亡
+                if(friend.isDestroy) {
+                    userGroup.splice(i, 1)
+                    continue
+                }
+                // 杀死所有超出边界的单位
+                if(rect.x > width || rect.y > height || rect.x + rect.width < 0 || rect.y + rect.height < 0) {
+                    friend.destroy(false)
+                    userGroup.splice(i, 1)
+                    continue
+                }
+                
+                friend.next().update()
+                
+                let arr = enemyGroupQuadTree.retrieve(friend.rect)
+                
+                for(let j = arr.length - 1; j >= 0; j--) {
+                    let enemyRect = arr[j]
+                    // 如果发生的碰撞
+                    if(Block.isCollision(enemyRect, friend.rect)) {
+                        Block.collision(enemyRect.block, friend)
+                    }
                 }
             }
+    
+            // 用户指针更新
+            user.pointer.angle = pointDeg(centerX, centerY, control.mouseX, control.mouseY)
             
             time++
             requestAnimationFrame(loop)
