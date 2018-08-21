@@ -21,9 +21,19 @@
     border: 1px solid #96FF4E;
     box-shadow: 0 0 10px 1px rgba(150, 255, 78, 0.6);
 }
+.spread-blue {
+    border: 1px solid #3F8EFF;
+    box-shadow: 0 0 10px 1px rgba(63, 142, 255, 0.6);
+    animation-name: spread-d;
+    animation-duration: 1s;
+}
 @keyframes spread {
     0% { transform: scale(1) }
     100% { transform: scale(5); opacity: 0 }
+}
+@keyframes spread-d {
+    0% { transform: scale(1) }
+    100% { transform: scale(10); opacity: 0 }
 }
 /*-----------预警类-----------*/
 .shrink {
@@ -40,6 +50,35 @@
     border: 1px solid #96FF4E;
     box-shadow: 0 0 10px 0 #96FF4E inset;
     animation-duration: .7s;
+}
+.shrink-yellow {
+    border: 1px dashed #F3FF12;
+    box-shadow: 0 0 10px 0 #F3FF12;
+    animation: shrinkRotate linear 1s;
+}
+.shrink-orange {
+    border: 1px dashed #FFAB20;
+    box-shadow: 0 0 10px 0 #FFAB20;
+    animation-duration: .6s;
+}
+.mark-blue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #3F8EFF;
+    border-radius: 50%;
+    position: relative;
+    animation: sha .2s linear reverse;
+    animation-direction: alternate;
+    animation-iteration-count: 6;
+}
+.mark-blue:after {
+    content: '!';
+    display: inline-block;
+    font-size: 35px;
+    color: #3F8EFF;
 }
 @keyframes shrink {
     0% { width: 160px; height: 160px; margin: -72px 0 0 -72px; opacity: 0 }
@@ -59,6 +98,28 @@
 }
 .boom-green {
     border: 3px dotted #96FF4E;
+}
+.boom-yellow {
+    border: 3px solid #F3FF12;
+    animation-duration: 1s;
+}
+.boom-orange {
+    border: 3px dotted #FFAB20;
+    box-shadow: 0 0 5px 0 #FFAB20;
+}
+.boom-blue {
+    border: 5px dotted #3F8EFF;
+    box-shadow: 0 0 5px 0 #3F8EFF;
+}
+.boom-s-blue {
+    border: 1px dotted #3F8EFF;
+    box-shadow: 0 0 1px 0 #3F8EFF;
+    animation: s-boom .5s;
+    transform-origin: center;
+}
+@keyframes s-boom {
+    0% { transform: scale(1) }
+    100% { transform: scale(3); opacity: 0 }
 }
 .boom-red {
     border: 3px dotted #FF2E2F;
@@ -81,6 +142,17 @@
     width: 8px;
     height: 8px;
     box-shadow: 0 0 5px 1px #FF2E2F;
+    z-index: 0;
+}
+.shadow-yellow {
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 10px 2px #F3FF12;
+}
+.shadow-orange {
+    width: 6px;
+    height: 6px;
+    background-color: #FFAB20;
     z-index: 0;
 }
 @keyframes sha {

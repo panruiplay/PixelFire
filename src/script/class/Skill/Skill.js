@@ -13,7 +13,7 @@ class Skill {
     }
     
     // 设置属性
-    setAttr(step, cd) {
+    setAttr(cd, step) {
         this.step = step
         this.cd = cd
     }

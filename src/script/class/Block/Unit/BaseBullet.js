@@ -5,8 +5,8 @@ class BaseBullet extends Block {
     className = 'san1'
     birthMusic = 'fire1'
     decorators = [[directionExpansion, 45]]
-    speed = 5.5
-    hp = 1
+    speed = 6
+    hp = 10
     atk = 10
     
     constructor(x, y) {

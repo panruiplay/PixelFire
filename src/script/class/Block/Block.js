@@ -106,7 +106,9 @@ class Block {
             }
         }
         > function () {
-            if(hasAni && that.birthAni) that.birthAni.show(that.rect.centerX, that.rect.centerY)
+            if(hasAni && that.birthAni){
+                that.birthAni.show(that.rect.centerX, that.rect.centerY)
+            }
             if(that.birthMusic) Game.Music.play(that.birthMusic)
             Game.domRoot.appendChild(that.dom)
             that.isDestroy = false

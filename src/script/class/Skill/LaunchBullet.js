@@ -12,13 +12,13 @@ class LaunchBullet extends Skill {
     }
     
     action(block) {
-        let { pointer }           = block,
+        let { pointer }        = block,
             { rect: userRect } = Game.user
-        
+
         let bullet = new this.bulletClass(userRect.centerX, userRect.centerY)
         
         bullet.init().birth(false, () => {
-            bullet.setAngle(pointer.angle)
+            bullet.setAngle(pointer.angle || 0)
             Game.userGroup.push(bullet)
         })
     }

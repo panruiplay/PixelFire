@@ -6,8 +6,12 @@ class SpreadRed extends Ani {
 class SpreadGreen extends Ani {
     constructor() { super(10, 10, 'spread spread-green') }
 }
+class SpreadBlue extends Ani {
+    constructor() { super(10, 10, 'spread spread-blue') }
+}
 
 export {
     SpreadRed,
     SpreadGreen,
+    SpreadBlue,
 }

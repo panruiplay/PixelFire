@@ -1,9 +1,9 @@
-import { ShrinkGreedM } from '../../Animation/Shrink'
+import { ShrinkGreedM } from '../../Animation/Pre'
 import { BoomGreen } from '../../Animation/Boom'
 import { SpreadGreen } from '../../Animation/Spread'
 import Block from '../Block'
 import { LaunchBullet } from '../../Skill/LaunchBullet'
-import BaseBullet from '../Bullet/BaseBullet'
+import BaseBullet from './BaseBullet'
 import { BoundsLimit } from '../decorators'
 
 class Green extends Block {
@@ -13,7 +13,7 @@ class Green extends Block {
     preAni = new ShrinkGreedM()        // 预警动画
     birthAni = new SpreadGreen()    // 出生动画
     deathAni = new BoomGreen()      // 死亡动画
-    hp = 10
+    hp = 1
     atk = 10
     
     decorators = [BoundsLimit]

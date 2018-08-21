@@ -6,7 +6,12 @@ class TrackingUser extends Skill {
     step = 29
     cd = 30
     
-    action(block) {
+    constructor(block, cd = 30, step = 29){
+        super(block)
+        this.setAttr(cd, step)
+    }
+    
+    action(block ) {
         let { rect }           = block,
             { rect: userRect } = Game.user
         

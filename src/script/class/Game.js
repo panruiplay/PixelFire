@@ -11,6 +11,7 @@ import UnitFactory from './Block/Unit/Factory'
 import Data from '../Data/index'
 import QuadTree from './QuadTree'
 import Block from './Block/Block'
+import Combination from './Block/Combination'
 
 class Game {
     width = 1000
@@ -52,15 +53,6 @@ class Game {
         this.eventBase()
         // 注册用户角色方向键控制
         this.userControl()
-        
-        let a = { x: 1, y: 2 },
-            s = Date.now()
-        
-        for(let i = 0; i < 1000000; i++) {
-            a.x, a.y, a.x, a.y
-        }
-        
-        console.log(Date.now() - s)
     }
     
     // 基本按钮事件
@@ -115,8 +107,26 @@ class Game {
             for(let i = data.length - 1; i >= 0; i--) {
                 let v = data[i]
                 if(v.createTime && time >= v.createTime) {
-                    let enemy = UnitFactory(v.enemy, v.x || this.randomX(), v.y || this.randomY())
-                    enemy.init().birth(true, () => enemyGroup.push(enemy))
+                    let { x, y } = v
+                    
+                    if(x === 'user') {
+                        x = this.userX()
+                        y = this.userY()
+                    }
+                    
+                    let enemy = UnitFactory(v.enemy, x || this.randomX(), y || this.randomY())
+                    if(enemy instanceof Combination) {
+                        // 组合敌人
+                        enemy.done((enemyArr) => {
+                            for(let j = 0; j < enemyArr.length; j++) {
+                                let enemyArrElement = enemyArr[j]
+                                enemyArrElement.birth(true, () => enemyGroup.push(enemyArrElement))
+                            }
+                        })
+                    } else {
+                        // 单个敌人
+                        enemy.birth(true, () => enemyGroup.push(enemy))
+                    }
                     continue
                 }
                 tmp.push(v)
@@ -176,13 +186,13 @@ class Game {
                 
                 for(let j = arr.length - 1; j >= 0; j--) {
                     let enemyRect = arr[j]
-                    // 如果发生的碰撞
+                    // 如果发生碰撞
                     if(Block.isCollision(enemyRect, friend.rect)) {
                         Block.collision(enemyRect.block, friend)
                     }
                 }
             }
-    
+            
             // 用户指针更新
             user.pointer.angle = pointDeg(centerX, centerY, control.mouseX, control.mouseY)
             
@@ -198,6 +208,8 @@ class Game {
     randomY() {
         return Math.random() * this.height >> 0
     }
+    userX() { return this.user.rect.centerX }
+    userY() { return this.user.rect.centerY }
 }
 
 export default new Game()

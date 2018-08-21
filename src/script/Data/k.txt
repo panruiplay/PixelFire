@@ -1,0 +1,13 @@
+关卡数据结构说明
+[
+    {
+        sign: number,       // 标记，可以为空
+        enemy: string,      // 敌人名称
+        x: number|string,   // 生成位置, 不设置表示随机位置, 为'user'表示用户当时的位置
+        y: number,
+        createTime: number,     // 指定时间生成 createData = time
+        onSignDeath: number     // 某个标记的敌人全部死亡之后 args[0] = delay
+        args: []
+        function: func      // 事件函数
+    }
+]

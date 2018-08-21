@@ -1,15 +1,21 @@
 import Skill from './Skill'
-import { ShadowRed } from '../Animation/Shadow'
 
-class SkillShadowRed extends Skill {
+class SkillShadow extends Skill {
     step = 0
     cd = 11
     
+    constructor(block, Class, cd = 12){
+        super(block)
+        this.Class = Class
+        this.cd = cd
+        this.step = cd / 3 >> 0
+    }
+    
     action(block) {
-        new ShadowRed().show(block.rect.centerX, block.rect.centerY)
+        new this.Class().show(block.rect.centerX, block.rect.centerY)
     }
 }
 
 export {
-    SkillShadowRed
+    SkillShadow
 }

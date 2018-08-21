@@ -28,6 +28,24 @@ export function BoundsLimit(block) {
         return block
     }
 }
+// 边界反弹
+export function BoundsRebound(block) {
+    let _next = block.next
+    block.next = () => {
+        _next.call(block)
+        let is                = false,
+            rect              = block.rect,
+            { width, height } = Game.bounds
+        
+        if(rect.x < 0) rect.x = 0, block.vx *= -1, is = true
+        if(rect.y < 0) rect.y = 0, block.vy *= -1, is = true
+        if(rect.x + rect.width > width) rect.x = width - rect.width, block.vx *= -1, is = true
+        if(rect.y + rect.height > height) rect.y = height - rect.height, block.vy *= -1, is = true
+        
+        if(is) rect.update()
+        return block
+    }
+}
 
 /* 实例装饰 */
 // block添加指针
