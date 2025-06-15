@@ -10,6 +10,7 @@ module.exports = {
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
         stats: 'errors-only',
+        open: true
     },
     devtool: 'source-map',
     module: {

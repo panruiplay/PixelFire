@@ -2,8 +2,8 @@ import { VolumeProduction } from './utils'
 
 export default [
     ...VolumeProduction({ enemy: 'Red', createTime: 30 }, 6, { createTime: 100 }),
-    ...VolumeProduction({ enemy: 'Red', createTime: 810, x: 200, y: 100 }, 8, { createTime: 10, y: 62 }),
-    ...VolumeProduction({ enemy: 'Red', createTime: 920, x: 800, y: 100 }, 8, { createTime: 10, y: 62 }),
+    ...VolumeProduction({ enemy: 'Red', createTime: 810, x: 200, y: 100 }, 7, { createTime: 10, y: 62 }),
+    ...VolumeProduction({ enemy: 'Red', createTime: 920, x: 800, y: 100 }, 7, { createTime: 10, y: 62 }),
     { enemy: 'Orange', createTime: 1500 },
     { enemy: 'Orange', createTime: 1550 },
     { enemy: 'Orange', createTime: 1650 },
@@ -15,4 +15,15 @@ export default [
     ...VolumeProduction({ enemy: 'Orange', createTime: 2300 }, 5, { createTime: 180 }),
     { enemy: 'Yellow', createTime: 2330 },
     ...VolumeProduction({ enemy: 'Yellow', createTime: 2400, x: 'user' }, 4, { createTime: 180 }),
+    { enemy: 'Blue', createTime: 3500 },
+    { enemy: 'Blue', createTime: 3700 },
+    ...VolumeProduction({ enemy: 'Yellow', createTime: 4000, x: 'user' }, 8, { createTime: 300 }),
+    ...VolumeProduction({ enemy: 'Red', createTime: 4000 }, 10, { createTime: 320 }),
+    { enemy: 'Blue', createTime: 5000 },
+    { enemy: 'Blue', createTime: 5000 },
+    { enemy: 'Blue', createTime: 5000 },
+    ...VolumeProduction({ enemy: 'Yellow', createTime: 5300, x: 'user' }, 8, { createTime: 80 }),
+    ...VolumeProduction({ enemy: 'Red', createTime: 6000 }, 10, { createTime: 50 }),
+    ...VolumeProduction({ enemy: 'Orange', createTime: 6000 }, 5, { createTime: 400 }),
+    { enemy: 'Blue', createTime: 6400 },
 ]

@@ -20,7 +20,7 @@ class Green extends Block {
     
     skill = [[LaunchBullet, BaseBullet, 'user']]
     
-    speed = 2
+    speed = 2.4
     angle = 0
     constructor(x, y) {
         super(x, y, 10, 10)

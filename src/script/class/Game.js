@@ -193,6 +193,8 @@ class Game {
                 }
             }
             
+            if(user.isDestroy) return null;
+            
             // 用户指针更新
             user.pointer.angle = pointDeg(centerX, centerY, control.mouseX, control.mouseY)
             

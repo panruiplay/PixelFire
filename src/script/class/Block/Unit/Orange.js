@@ -14,7 +14,7 @@ class Orange extends Block {
     hp = 10
     atk = 10
     
-    skill = [[SkillShadow, ShadowOrange, 9], [TrackingUser, 30, 29]]
+    skill = [[SkillShadow, ShadowOrange, 9], [TrackingUser, 50, 49]]
     decorators = []
     
     speed = 3.5
