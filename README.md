@@ -2,7 +2,6 @@
 ES6 手撸的射击游戏，Webpack 构建。
 
 ![img](./doc/1.gif)
-![img](./doc/2.gif)
 ![img](./doc/3.gif)
 ![img](./doc/4.gif)
 
